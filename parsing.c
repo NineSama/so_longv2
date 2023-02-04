@@ -6,7 +6,7 @@
 /*   By: mfroissa <mfroissa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:56:22 by mfroissa          #+#    #+#             */
-/*   Updated: 2023/02/04 18:14:45 by mfroissa         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:56:35 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	get_map_height(t_data *data)
 
 	i = 0;
 	line = get_next_line(data->map.fd);
-	if (!line || line == NULL)
-		return (0);
 	data->map.width = ft_strlen(line) - 1;
 	while (line)
 	{
@@ -99,8 +97,6 @@ int	create_map(t_data *data)
 	data->map.fd = open(data->path, O_RDONLY);
 	if (!data->map.fd)
 		return (0);
-	if (!get_map_height(data))
-		return (free_ber(data), 0);
 	data->map.map = malloc(sizeof(char *) * get_map_height(data));
 	if (!data->map.map)
 		return (0);
