@@ -6,7 +6,7 @@
 /*   By: mfroissa <mfroissa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 23:15:24 by mfroissa          #+#    #+#             */
-/*   Updated: 2023/02/04 16:30:57 by mfroissa         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:14:05 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	free_all(t_data *data, char c)
 
 int	trucdu(t_data *data)
 {
+	close(data->map.fd);
 	free_all(data, 't');
 	exit (0);
 }

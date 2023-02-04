@@ -6,7 +6,7 @@
 /*   By: mfroissa <mfroissa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:18:58 by mfroissa          #+#    #+#             */
-/*   Updated: 2023/02/04 18:02:21 by mfroissa         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:34:20 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,22 @@
 
 int	check_dir(char *path)
 {
-	int		fd;
+	int	fd;
 
-	if (open(path, __O_DIRECTORY) >= 0)
+	fd = open(path, __O_DIRECTORY);
+	if (fd != -1)
 	{
-		fd = open(path, __O_DIRECTORY);
 		close(fd);
 		write(2, "Trying to open a dir ?\n", 23);
 		return (0);
 	}
-	else if (open(path, O_RDONLY) <= 0)
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
 	{
 		write(2, "Cant open file\n", 15);
 		return (0);
 	}
+	close(fd);
 	return (1);
 }
 

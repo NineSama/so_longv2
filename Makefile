@@ -20,7 +20,6 @@ _DEPS =		so_long.h
 
 INCL =		./includes/
 
-DEPS =		$(patsubst %,$(INCL)/%,$(_DEPS))
 
 OBJS =		${SRCS:.c=.o}
 
@@ -34,7 +33,7 @@ MLX =		./mlx
 
 MLX_LIB = 	./mlx/libmlx.a
 
-.c.o:		${DEPS} 
+.c.o:
 		${CC} ${CFLAGS} -I${INCL} -I${MLX} -g3 -c $< -o ${<:.c=.o}
 
 $(NAME):	${OBJS} $(MLX_LIB)

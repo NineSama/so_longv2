@@ -6,7 +6,7 @@
 /*   By: mfroissa <mfroissa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:25:33 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/23 18:02:54 by mfroissa         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:25:34 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,22 +102,22 @@ int	is_valid(t_data *data)
 	if (!is_rectangle(data))
 	{
 		write(2, "Map isn't a rectangle\n", 22);
-		return (0);
+		return (close(data->map.fd), 0);
 	}
 	if (!is_surrounded(data))
 	{
 		write(2, "Map isn't surrounded by walls\n", 30);
-		return (0);
+		return (close(data->map.fd), 0);
 	}
 	if (!count_amount(data))
 	{
 		write(2, "Map not right\n", 14);
-		return (0);
+		return (close(data->map.fd), 0);
 	}
 	if (!init_pathfind(data))
 	{
 		write(2, "No path available\n", 18);
-		return (0);
+		return (close(data->map.fd), 0);
 	}
-	return (1);
+	return (close(data->map.fd), 1);
 }

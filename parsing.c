@@ -6,7 +6,7 @@
 /*   By: mfroissa <mfroissa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:56:22 by mfroissa          #+#    #+#             */
-/*   Updated: 2023/02/04 18:56:35 by mfroissa         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:35:15 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	get_map_height(t_data *data)
 		line = get_next_line(data->map.fd);
 	}
 	data->map.height = i;
-	return (i);
+	return (close(data->map.fd), i);
 }
 
 void	get_pos_exit(t_data *data, int y, int x)
@@ -57,7 +57,7 @@ int	get_map(t_data *data)
 	{
 		data->map.map[n_line] = malloc(sizeof(char) * (ft_strlen(line) + 1));
 		if (!data->map.map[n_line])
-			return (0);
+			return (close(data->map.fd), 0);
 		i = 0;
 		while (line[i] && line[i] != '\n')
 		{
@@ -70,7 +70,7 @@ int	get_map(t_data *data)
 		free(line);
 		line = get_next_line(data->map.fd);
 	}
-	return (1);
+	return (close(data->map.fd), 1);
 }
 
 int	is_ber(t_data *data)
@@ -89,15 +89,17 @@ int	is_ber(t_data *data)
 
 int	create_map(t_data *data)
 {
+	int	i;
+
 	if (!is_ber(data))
-	{
-		write(2, "Map not a .ber\n", 15);
-		return (free_ber(data), 0);
-	}
+		return (write(2, "Map not a .ber\n", 15), free_ber(data), 0);
 	data->map.fd = open(data->path, O_RDONLY);
 	if (!data->map.fd)
 		return (0);
-	data->map.map = malloc(sizeof(char *) * get_map_height(data));
+	i = get_map_height(data);
+	if (i < 3)
+		return (close(data->map.fd), free_ber(data), 0);
+	data->map.map = malloc(sizeof(char *) * i);
 	if (!data->map.map)
 		return (0);
 	initialising_values(data);
@@ -105,5 +107,5 @@ int	create_map(t_data *data)
 		return (free_all(data, 'h'), 0);
 	if (!get_map(data))
 		trucdu(data);
-	return (is_valid(data));
+	return (close(data->map.fd), is_valid(data));
 }

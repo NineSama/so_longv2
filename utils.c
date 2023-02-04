@@ -6,7 +6,7 @@
 /*   By: mfroissa <mfroissa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 20:01:49 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/21 23:16:19 by mfroissa         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:18:50 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_strlen(char *line)
 	int	i;
 
 	i = 0;
+	if (!line)
+		return (0);
 	while (line[i])
 		i++;
 	return (i);
