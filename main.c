@@ -6,7 +6,7 @@
 /*   By: mfroissa <mfroissa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:18:58 by mfroissa          #+#    #+#             */
-/*   Updated: 2023/02/04 16:36:03 by mfroissa         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:02:21 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	check_dir(char *path)
 	{
 		fd = open(path, __O_DIRECTORY);
 		close(fd);
+		write(2, "Trying to open a dir ?\n", 23);
+		return (0);
+	}
+	else if (open(path, O_RDONLY) <= 0)
+	{
+		write(2, "Cant open file\n", 15);
 		return (0);
 	}
 	return (1);
@@ -57,16 +63,13 @@ int	main(int ac, char **av)
 	data = malloc(sizeof(t_data));
 	data->path = av[1];
 	if (!check_dir(data->path))
-	{
-		write(2, "Trying to open a dir ?\n", 23);
-		return (free(data), 1);
-	}
+		return (free(data), 2);
 	if (!data)
-		return (1);
+		return (3);
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
-		return (2);
+		return (4);
 	if (!so_long_core(data))
-		return (3);
+		return (5);
 	return (0);
 }
